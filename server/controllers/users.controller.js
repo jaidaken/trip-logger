@@ -1,4 +1,4 @@
-import User from "../models/users/user.model.js";
+import User from "../models/user.model.js";
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 
@@ -8,6 +8,21 @@ function errorHandler (res, err) {
 }
 
 export function getUsers(req, res) {
+  let query = {};
+  if (req.params.id) {
+    query._id = req.params.id;
+  }
+  User.find(query)
+    // .populate("items")
+    .exec((err, users) => {
+      if (err) return errorHandler(res, err);
+      if (req.params.id && users.length === 0)
+        return res.status(404).send({ message: "No user with that ID" });
+      return res.status(200).json(users);
+    });
+}
+
+export function getUserUsers(req, res) {
   let query = {};
   if (req.params.id) {
     query._id = req.params.id;

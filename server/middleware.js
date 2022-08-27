@@ -1,9 +1,10 @@
-import express from "express";
-import path from "path";
+/* eslint-disable no-underscore-dangle */
+import express from 'express';
+import path from 'path';
 // import helmet from "helmet";
 // import cors from "cors";
-import compression from "compression";
-import morgan from "morgan";
+import compression from 'compression';
+import morgan from 'morgan';
 // import logger from './logger';
 
 import * as url from 'url';
@@ -11,12 +12,13 @@ import * as url from 'url';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 global.__basedir = __dirname;
 
-const { NODE_ENV = "development" } = process.env;
+const { NODE_ENV = 'development' } = process.env;
 
 export default function middlewareSetup(app) {
-  // In dev mode, react-server serves the files BUT in production we BUILD the react project and express serves it out of the build folder
-  if (NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/", "dist")));
+  // In dev mode, react-server serves the files
+  // BUT in production we BUILD the react project and express serves it out of the build folder
+  if (NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/', 'dist')));
     app.use(compression());
   }
 
@@ -29,10 +31,10 @@ export default function middlewareSetup(app) {
   // Helmet for security
   // app.use(helmet());
   // CORS to make our API public
-//   app.use(cors());
+  //   app.use(cors());
 
   // http logging
-  app.use(morgan("dev"));
+  app.use(morgan('dev'));
 
   //   let logger = new (winston.Logger)({
   //     exitOnError: false,
@@ -43,7 +45,7 @@ export default function middlewareSetup(app) {
   //     ]
   // })
 
-  //using the logger and its configured transports, to save the logs created by Morgan
+  // using the logger and its configured transports, to save the logs created by Morgan
   // const myStream = {
   //     write: (text) => {
   //         logger.info(text)
