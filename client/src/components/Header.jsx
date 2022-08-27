@@ -53,7 +53,6 @@ function Header() {
               Log In
             </Button>
           )}
-          ;
           <Box
             sx={{
               flexGrow: 1,
