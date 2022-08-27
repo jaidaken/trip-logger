@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,19 +15,39 @@ function Header() {
     <Box sx={{ flexGrow: 1, mb: 4 }}>
       <AppBar position="static">
         <Toolbar>
-          <Button sx={{ my: 2, color: 'white', display: 'block' }} to="/">
+          <Button
+            sx={{
+              my: 2,
+              color: 'white',
+              display: 'block',
+              '&:hover': {
+                color: 'yellow',
+              },
+            }}
+            to="/"
+          >
             Trip Logger
           </Button>
           {user ? (
             <Button
-              sx={{ my: 2, color: 'white', display: 'block' }}
+              sx={{
+                backgroundColor: 'white',
+                '&:hover': {
+                  backgroundColor: 'yellow',
+                },
+              }}
               onClick={logoutFn}
             >
               Log Out
             </Button>
           ) : (
             <Button
-              sx={{ my: 2, color: 'white', display: 'block' }}
+              sx={{
+                backgroundColor: 'white',
+                '&:hover': {
+                  backgroundColor: 'yellow',
+                },
+              }}
               onClick={loginFn}
             >
               Log In
