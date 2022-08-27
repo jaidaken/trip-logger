@@ -11,6 +11,7 @@ import PageLayout from './components/PageLayout';
 // import ErrorBoundary from "./components/ErrorBoundary";
 
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
 // import { CarsProvider } from './contexts/car.context';
@@ -34,6 +35,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PageLayout />}>
               <Route index element={<Home />} />
+              <Route path="profile" element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

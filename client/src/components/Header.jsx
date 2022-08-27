@@ -9,15 +9,31 @@ import Button from '@mui/material/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Header() {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, logout, user } = useAuth0();
+  const loginFn = () => loginWithRedirect();
+  const logoutFn = () => logout({ returnTo: window.location.origin });
   return (
     <Box sx={{ flexGrow: 1, mb: 4 }}>
       <AppBar position="static">
         <Toolbar>
-          <Button sx={{ my: 2, color: 'white', display: 'block' }} component={NavLink} to="/">
+          <Button sx={{ my: 2, color: 'white', display: 'block' }} to="/">
             Trip Logger
           </Button>
-          <Button onClick={() => loginWithRedirect()}>Log In</Button>
+          {user ? (
+            <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              onClick={logoutFn}
+            >
+              Log Out
+            </Button>
+          ) : (
+            <Button
+              sx={{ my: 2, color: 'white', display: 'block' }}
+              onClick={loginFn}
+            >
+              Log In
+            </Button>
+          )}
           ;
           <Box
             sx={{
