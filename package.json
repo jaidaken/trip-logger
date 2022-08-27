@@ -16,7 +16,7 @@
     "build:client": "npm --prefix ./client run build",
     "build": "npm run setup && npm run build:client",
     "heroku-postbuild": "npm run build",
-    "start": "cross-env NODE_ENV=production npm --prefix ./server start"
+    "start": "npm --prefix ./server start"
   },
   "keywords": [],
   "author": "",
