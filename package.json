@@ -2,6 +2,9 @@
   "name": "trip-logger",
   "version": "1.0.0",
   "description": "Trip logger",
+  "engines": {
+    "node": "18.x"
+  },
   "type": "module",
   "scripts": {
     "setup": "concurrently -kill-others-on-fail \"npm run install:client\" \"npm run install:server\" ",
