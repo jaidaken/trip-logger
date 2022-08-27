@@ -6,8 +6,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 // import IconButton from "@mui/material/IconButton";
 // import MenuIcon from "@mui/icons-material/Menu";
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Header() {
+  const { loginWithRedirect } = useAuth0();
   return (
     <Box sx={{ flexGrow: 1, mb: 4 }}>
       <AppBar position="static">
@@ -15,6 +17,8 @@ function Header() {
           <Button sx={{ my: 2, color: 'white', display: 'block' }} component={NavLink} to="/">
             Trip Logger
           </Button>
+          <Button onClick={() => loginWithRedirect()}>Log In</Button>
+          ;
           <Box
             sx={{
               flexGrow: 1,
