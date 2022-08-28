@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const localDBName = "trip-logger";
+const localDBName = 'trip-logger';
 const { MONGODB_URI = `mongodb://127.0.0.1/${localDBName}` } = process.env;
 
 const options = {};
@@ -11,6 +11,6 @@ try {
   console.log(error);
 }
 
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', (err) => {
   console.log(err);
-})
+});

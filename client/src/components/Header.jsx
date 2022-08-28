@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -24,16 +25,42 @@ function Header() {
                 color: 'yellow',
               },
             }}
+            component={NavLink}
             to="/"
           >
             Trip Logger
           </Button>
+
+          <Button
+            sx={{
+              my: 2,
+              color: 'white',
+              display: 'block',
+              '&:hover': {
+                color: 'yellow',
+              },
+            }}
+            component={NavLink}
+            to="/profile"
+          >
+            Profile
+          </Button>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+            }}
+          />
           {user ? (
             <Button
               sx={{
                 backgroundColor: 'white',
+                boxShadow: '4px 4px hsla(359, 96%, 24%, 0.4)',
                 '&:hover': {
                   backgroundColor: 'yellow',
+                  boxShadow: '2px 2px hsla(359, 96%, 24%, 0.8)',
                 },
               }}
               onClick={logoutFn}
@@ -44,8 +71,10 @@ function Header() {
             <Button
               sx={{
                 backgroundColor: 'white',
+                boxShadow: '4px 4px hsla(359, 96%, 24%, 0.4)',
                 '&:hover': {
                   backgroundColor: 'yellow',
+                  boxShadow: '2px 2px hsla(359, 96%, 24%, 0.8)',
                 },
               }}
               onClick={loginFn}
@@ -53,13 +82,6 @@ function Header() {
               Log In
             </Button>
           )}
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'none', md: 'flex' },
-              justifyContent: 'flex-end',
-            }}
-          />
         </Toolbar>
       </AppBar>
     </Box>
