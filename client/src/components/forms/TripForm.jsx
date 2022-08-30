@@ -37,16 +37,15 @@ function TripForm() {
     defaultValues,
   });
 
-  console.log('formState', formState);
+  // console.log('formState', formState);
   const { isDirty, isValid, errors } = formState;
 
-  console.log('errors', errors);
+  // console.log('errors', errors);
   const onSubmit = async (formValues) => {
-    console.log('formValues', formValues);
     // treat data
     formValues.date = dayjs(formValues.date).format('YYYY-MM-DD'); // format
     formValues.place = places.find((place) => place.name.common === formValues.place)?._id;
-    console.log('re-formatted formValues', formValues);
+    // console.log('re-formatted formValues', formValues);
     addTrip(formValues);
     reset(defaultValues);
   };

@@ -88,7 +88,7 @@ export function UsersProvider(props) {
       setUsers(data);
       // console.log('users from context', users);
     } catch (err) {
-      console.log('err', err);
+      // console.log('err', err);
       setError(err);
     }
   }, [accessToken, setError, setLoading, setUsers, state]);
@@ -96,8 +96,8 @@ export function UsersProvider(props) {
   const addUser = useCallback(
     async (formData) => {
       if (!accessToken) return;
-      console.log('headers', headers);
-      console.log('accessToken', accessToken);
+      // console.log('headers', headers);
+      // console.log('accessToken', accessToken);
       setLoading();
       const { users } = state;
       try {
@@ -110,13 +110,13 @@ export function UsersProvider(props) {
           throw response;
         }
         const savedUser = await response.json();
-        console.log('got data', savedUser);
+        // console.log('got data', savedUser);
         setUsers([...users, savedUser]);
         // addToast(`Saved ${savedUser.title}`, {
         //   appearance: "success",
         // });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setState(err);
         // addToast(`Error ${err.message || err.statusText}`, {
         //   appearance: "error",
@@ -146,7 +146,7 @@ export function UsersProvider(props) {
 
         // Get actual user
         const oldUser = users[index];
-        console.log('🚀 ~ file: users.context.js ~ line 95 ~ updateUser ~ oldUser', oldUser);
+        // console.log('🚀 ~ file: users.context.js ~ line 95 ~ updateUser ~ oldUser', oldUser);
 
         // Merge with updates
         newUser = {
@@ -154,16 +154,16 @@ export function UsersProvider(props) {
           ...oldUser,
           ...updates, // order here is important for the override!!
         };
-        console.log('🚀 ~ file: users.context.js ~ line 99 ~ updateUser ~ newUser', newUser);
+        // console.log('🚀 ~ file: users.context.js ~ line 99 ~ updateUser ~ newUser', newUser);
         // recreate the users array
         const updatedUsers = [...users.slice(0, index), newUser, ...users.slice(index + 1)];
-        console.log('🚀 ~ file: users.context.js ~ line 120 ~ updatedUsers', updatedUsers);
+        // console.log('🚀 ~ file: users.context.js ~ line 120 ~ updatedUsers', updatedUsers);
         setUsers(updatedUsers);
         // addToast(`Updated ${newUser.title}`, {
         //   appearance: "success",
         // });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setError(err);
         // addToast(`Error: Failed to update ${newUser.title}`, {
         //   appearance: "error",
@@ -197,7 +197,7 @@ export function UsersProvider(props) {
         //   appearance: "success",
         // });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setError(err);
         // addToast(`Error: Failed to update ${deletedUser.title}`, {
         //   appearance: "error",

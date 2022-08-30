@@ -27,7 +27,7 @@ export function TripsProvider(props) {
   const { accessToken } = useContext(AuthContext);
   const { showMessage } = useContext(UIContext);
   const { places } = useContext(PlacesContext);
-  console.log('places', places);
+  // console.log('places', places);
   const [state, setState] = useState({
     loading: false,
     loaded: false,
@@ -71,8 +71,8 @@ export function TripsProvider(props) {
   const fetchTrips = useCallback(async () => {
   // console.log('loading', loading);
   // console.log('error', error);
-    console.log('fetchTrips called');
-    console.log('accessToken', accessToken);
+    // console.log('fetchTrips called');
+    // console.log('accessToken', accessToken);
 
     const { loading, loaded, error } = state;
 
@@ -97,7 +97,7 @@ export function TripsProvider(props) {
       const data = await response.json();
       setTrips(data);
     } catch (err) {
-      console.log('err', err);
+      // console.log('err', err);
       setError(err);
       showMessage({ type: 'error', message: 'Error: Failed to load trips' });
     }
@@ -106,8 +106,8 @@ export function TripsProvider(props) {
   const addTrip = useCallback(
     async (formData) => {
       if (!accessToken) return;
-      console.log('headers', headers);
-      console.log('accessToken', accessToken);
+      // console.log('headers', headers);
+      // console.log('accessToken', accessToken);
       const fullPlace = places.find(({ _id }) => _id === formData.place);
       setLoading();
       const { trips } = state;
@@ -121,7 +121,7 @@ export function TripsProvider(props) {
           throw response;
         }
         const savedTrip = await response.json();
-        console.log('got data', savedTrip);
+        // console.log('got data', savedTrip);
 
         savedTrip.place = fullPlace;
         setTrips([...trips, savedTrip]);
@@ -130,7 +130,7 @@ export function TripsProvider(props) {
           message: `Added ${savedTrip.place.name.common}`,
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setState(err);
         showMessage({
           type: 'error',
@@ -161,7 +161,7 @@ export function TripsProvider(props) {
 
         // Get actual trip
         const oldTrip = trips[index];
-        console.log('🚀 ~ file: trips.context.js ~ line 95 ~ updateTrip ~ oldTrip', oldTrip);
+        // console.log('🚀 ~ file: trips.context.js ~ line 95 ~ updateTrip ~ oldTrip', oldTrip);
 
         // Merge with updates
         newTrip = {
@@ -169,17 +169,17 @@ export function TripsProvider(props) {
           ...oldTrip,
           ...updates, // order here is important for the override!!
         };
-        console.log('🚀 ~ file: trips.context.js ~ line 99 ~ updateTrip ~ newTrip', newTrip);
+        // console.log('🚀 ~ file: trips.context.js ~ line 99 ~ updateTrip ~ newTrip', newTrip);
         // recreate the trips array
         const updatedTrips = [...trips.slice(0, index), newTrip, ...trips.slice(index + 1)];
-        console.log('🚀 ~ file: trips.context.js ~ line 120 ~ updatedTrips', updatedTrips);
+        // console.log('🚀 ~ file: trips.context.js ~ line 120 ~ updatedTrips', updatedTrips);
         setTrips(updatedTrips);
         showMessage({
           type: 'success',
           message: `Updated ${newTrip.place.name.common}`,
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setError(err);
         showMessage({
           type: 'error',
@@ -192,7 +192,7 @@ export function TripsProvider(props) {
 
   const deleteTrip = useCallback(
     async (id) => {
-      console.log('calling deleteTrip', accessToken);
+      // console.log('calling deleteTrip', accessToken);
       if (!accessToken) return;
       let deletedTrip = null;
       setLoading();
@@ -216,7 +216,7 @@ export function TripsProvider(props) {
           message: `Deleted ${deletedTrip.place.name.common}`,
         });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setError(err);
         showMessage({
           type: 'error',

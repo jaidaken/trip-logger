@@ -16,9 +16,9 @@ function Trips() {
     fetchTrips, trips, loaded, loading, deleteTrip,
   } = useContext(TripsContext);
   useEffect(() => {
-    console.log('HERRERERERE', { trips, loaded, loading });
+    // console.log('HERRERERERE', { trips, loaded, loading });
     if (!loaded && !loading) {
-      console.log('fetching');
+      // console.log('fetching');
       fetchTrips();
     }
   });

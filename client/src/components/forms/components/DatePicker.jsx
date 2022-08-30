@@ -9,7 +9,6 @@ import { Controller } from 'react-hook-form';
 import EB from '../../ErrorBoundary';
 
 function DatePicker({ control, ...props }) {
-  console.log('dp props', props);
 
   return (
     <EB>
@@ -20,7 +19,6 @@ function DatePicker({ control, ...props }) {
               name, onBlur, onChange, value, ref,
             },
             formState: { errors },
-            fieldState,
           }) => (
             <DesktopDatePicker
               inputFormat="DD/MM/YYYY"

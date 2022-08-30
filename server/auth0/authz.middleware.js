@@ -3,8 +3,8 @@ import jwksRsa from 'jwks-rsa';
 
 const { AUTH0_DOMAIN, AUTH0_AUDIENCE } = process.env;
 
-console.log('AUTH0_DOMAIN', AUTH0_DOMAIN);
-console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
+// console.log('AUTH0_DOMAIN', AUTH0_DOMAIN);
+// console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
 
 export const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
@@ -21,6 +21,6 @@ export const checkJwt = jwt({
 });
 
 export const logToken = (req, res, next) => {
-  console.log(`headers: ${req.headers}`);
+  // console.log(`headers: ${req.headers}`);
   next();
 };

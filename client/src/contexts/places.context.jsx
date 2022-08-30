@@ -2,192 +2,192 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, {
-	createContext, useState, useCallback, useContext, useEffect,
-  } from 'react';
-  import { AuthContext } from './auth.context';
-  
-  const headers = {
-	'Content-Type': 'application/json',
-	// 'Content-Type': 'application/x-www-form-urlencoded',
-  };
-  
-  export const PlacesContext = createContext({
-	fetchPlaces: () => [],
-	addPlace: () => {},
-	updatePlace: () => {},
-	deletePlace: () => {},
-	loaded: false,
-	loading: false,
-	error: null,
-	places: [],
-  });
-  
-  export function PlacesProvider(props) {
-	const { accessToken } = useContext(AuthContext);
-  
-	const [state, setState] = useState({
+  createContext, useState, useCallback, useContext, useEffect,
+} from 'react';
+import { AuthContext } from './auth.context';
+
+const headers = {
+  'Content-Type': 'application/json',
+  // 'Content-Type': 'application/x-www-form-urlencoded',
+};
+
+export const PlacesContext = createContext({
+  fetchPlaces: () => [],
+  addPlace: () => {},
+  updatePlace: () => {},
+  deletePlace: () => {},
+  loaded: false,
+  loading: false,
+  error: null,
+  places: [],
+});
+
+export function PlacesProvider(props) {
+  const { accessToken } = useContext(AuthContext);
+
+  const [state, setState] = useState({
 	  loading: false,
 	  loaded: false,
 	  error: null,
 	  places: [],
-	});
-  
-	const {
+  });
+
+  const {
 	  loading, error, places, loaded,
-	} = state;
-	// console.log('rerendering', {loading, error, places, loaded});
-  
-	const setLoading = useCallback(
+  } = state;
+  // console.log('rerendering', {loading, error, places, loaded});
+
+  const setLoading = useCallback(
 	  () => setState({
-		...state,
-		loading: true,
+      ...state,
+      loading: true,
 	  }),
 	  [state],
-	);
-  
-	const setPlaces = useCallback(
+  );
+
+  const setPlaces = useCallback(
 	  (data) => setState({
-		...state,
-		places: data,
-		loading: false,
-		loaded: true,
+      ...state,
+      places: data,
+      loading: false,
+      loaded: true,
 	  }),
 	  [state],
-	);
-  
-	const setError = useCallback(
+  );
+
+  const setError = useCallback(
 	  (err) => setState({
-		...state,
-		error: err.message || err.statusText,
-		loading: false,
-		loaded: true,
+      ...state,
+      error: err.message || err.statusText,
+      loading: false,
+      loaded: true,
 	  }),
 	  [state],
-	);
-  
-	// const [search, setSearch] = useState("");
-  
-	const fetchPlaces = useCallback(async () => {
-	// console.log('loading', loading);
-	// console.log('error', error);
-  
+  );
+
+  // const [search, setSearch] = useState("");
+
+  const fetchPlaces = useCallback(async () => {
+    // console.log('loading', loading);
+    // console.log('error', error);
+
 	  const { loading, loaded, error } = state;
-  
+
 	  if (loading || loaded || error) {
-		return;
+      return;
 	  }
-  
+
 	  setLoading();
-  
+
 	  try {
-		const response = await fetch('/api/v1/places', {
+      const response = await fetch('/api/v1/places', {
 		  headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
-		});
-		if (!response.ok) {
+      });
+      if (!response.ok) {
 		  throw response;
-		}
-		const data = await response.json();
-		setPlaces(data);
-		// console.log('places from context', places);
+      }
+      const data = await response.json();
+      setPlaces(data);
+      // console.log('places from context', places);
 	  } catch (err) {
-		console.log('err', err);
-		setError(err);
+      // console.log('err', err);
+      setError(err);
 	  }
-	}, [accessToken, setError, setLoading, setPlaces, state]);
-  
-	const addPlace = useCallback(
+  }, [accessToken, setError, setLoading, setPlaces, state]);
+
+  const addPlace = useCallback(
 	  async (formData) => {
-		if (!accessToken) return;
-		console.log('headers', headers);
-		console.log('accessToken', accessToken);
-		setLoading();
-		const { places } = state;
-		try {
+      if (!accessToken) return;
+      // console.log('headers', headers);
+      // console.log('accessToken', accessToken);
+      setLoading();
+      const { places } = state;
+      try {
 		  const response = await fetch('/api/v1/places', {
-			method: 'POST',
-			headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
-			body: JSON.stringify(formData),
+          method: 'POST',
+          headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
+          body: JSON.stringify(formData),
 		  });
 		  if (response.status !== 201) {
-			throw response;
+          throw response;
 		  }
 		  const savedPlace = await response.json();
-		  console.log('got data', savedPlace);
+        //   console.log('got data', savedPlace);
 		  setPlaces([...places, savedPlace]);
 		  // addToast(`Saved ${savedPlace.title}`, {
 		  //   appearance: "success",
 		  // });
-		} catch (err) {
-		  console.log(err);
+      } catch (err) {
+        //   console.log(err);
 		  setState(err);
 		  // addToast(`Error ${err.message || err.statusText}`, {
 		  //   appearance: "error",
 		  // });
-		}
+      }
 	  },
 	  [accessToken, /* addToast, */ setLoading, setPlaces, state],
-	);
-  
-	const updatePlace = useCallback(
+  );
+
+  const updatePlace = useCallback(
 	  async (id, updates) => {
-		if (!accessToken) return;
-		let newPlace = null;
-		setLoading();
-		const { places } = state;
-		try {
+      if (!accessToken) return;
+      let newPlace = null;
+      setLoading();
+      const { places } = state;
+      try {
 		  const response = await fetch(`/api/v1/places/${id}`, {
-			method: 'PUT',
-			headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
-			body: JSON.stringify(updates),
+          method: 'PUT',
+          headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
+          body: JSON.stringify(updates),
 		  });
 		  if (!response.ok) {
-			throw response;
+          throw response;
 		  }
 		  // Get index
 		  const index = places.findIndex((place) => place._id === id);
-  
+
 		  // Get actual place
 		  const oldPlace = places[index];
-		  console.log('🚀 ~ file: places.context.js ~ line 95 ~ updatePlace ~ oldPlace', oldPlace);
-  
+		//   console.log('🚀 ~ file: places.context.js ~ line 95 ~ updatePlace ~ oldPlace', oldPlace);
+
 		  // Merge with updates
 		  newPlace = {
-			// legit use of 'var', so can be seen in catch block
-			...oldPlace,
-			...updates, // order here is important for the override!!
+          // legit use of 'var', so can be seen in catch block
+          ...oldPlace,
+          ...updates, // order here is important for the override!!
 		  };
-		  console.log('🚀 ~ file: places.context.js ~ line 99 ~ updatePlace ~ newPlace', newPlace);
+		//   console.log('🚀 ~ file: places.context.js ~ line 99 ~ updatePlace ~ newPlace', newPlace);
 		  // recreate the places array
 		  const updatedPlaces = [...places.slice(0, index), newPlace, ...places.slice(index + 1)];
-		  console.log('🚀 ~ file: places.context.js ~ line 120 ~ updatedPlaces', updatedPlaces);
+		//   console.log('🚀 ~ file: places.context.js ~ line 120 ~ updatedPlaces', updatedPlaces);
 		  setPlaces(updatedPlaces);
 		  // addToast(`Updated ${newPlace.title}`, {
 		  //   appearance: "success",
 		  // });
-		} catch (err) {
-		  console.log(err);
+      } catch (err) {
+		//   console.log(err);
 		  setError(err);
 		  // addToast(`Error: Failed to update ${newPlace.title}`, {
 		  //   appearance: "error",
 		  // });
-		}
+      }
 	  },
 	  [accessToken, /* addToast, */ setError, setLoading, setPlaces, state],
-	);
-  
-	const deletePlace = useCallback(
+  );
+
+  const deletePlace = useCallback(
 	  async (id) => {
-		if (!accessToken) return;
-		let deletedPlace = null;
-		setLoading();
-		const { places } = state;
-		try {
+      if (!accessToken) return;
+      let deletedPlace = null;
+      setLoading();
+      const { places } = state;
+      try {
 		  const response = await fetch(`/api/v1/places/${id}`, {
-			method: 'DELETE',
-			headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
+          method: 'DELETE',
+          headers: accessToken ? { ...headers, Authorization: `Bearer ${accessToken}` } : headers,
 		  });
 		  if (response.status !== 204) {
-			throw response;
+          throw response;
 		  }
 		  // Get index
 		  const index = places.findIndex((place) => place._id === id);
@@ -198,24 +198,24 @@ import React, {
 		  // addToast(`Deleted ${deletedPlace.title}`, {
 		  //   appearance: "success",
 		  // });
-		} catch (err) {
-		  console.log(err);
+      } catch (err) {
+		//   console.log(err);
 		  setError(err);
 		  // addToast(`Error: Failed to update ${deletedPlace.title}`, {
 		  //   appearance: "error",
 		  // });
-		}
+      }
 	  },
 	  [accessToken, /* addToast, */ setError, setLoading, setPlaces, state],
-	);
-  
-	useEffect(() => {
+  );
+
+  useEffect(() => {
 	  fetchPlaces();
-	}, []);
-  
-	return (
-	  <PlacesContext.Provider
-		value={{
+  }, []);
+
+  return (
+    <PlacesContext.Provider
+      value={{
 		  places,
 		  loading,
 		  error,
@@ -224,10 +224,9 @@ import React, {
 		  addPlace,
 		  updatePlace,
 		  deletePlace,
-		}}
-	  >
-		{props.children}
-	  </PlacesContext.Provider>
-	);
-  }
-  
+      }}
+    >
+      {props.children}
+    </PlacesContext.Provider>
+  );
+}

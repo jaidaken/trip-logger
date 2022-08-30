@@ -31,24 +31,23 @@ export function AuthProvider(props) {
   } = useAuth0();
 
   const [accessToken, setAccessToken] = useState(null);
-  console.log('our auth RR token', accessToken);
 
   useEffect(() => {
     const getToken = async () => {
-      console.log('getting AT', `http://${domain}/api/v1`);
+      // console.log('getting AT', `http://${domain}/api/v1`);
       try {
         const Acctoken = await getAccessTokenSilently();
-        console.log('GOT AT', Acctoken);
+        // console.log('GOT AT', Acctoken);
         setAccessToken(Acctoken);
       } catch (err) {
-        console.log('getAccessTokenSilently err', err);
+        // console.log('getAccessTokenSilently err', err);
         if (err.error === 'login_required' || err.error === 'consent_required') {
           loginWithRedirect();
         }
       }
     };
     if (user && !isLoading && !error) {
-      console.log('user', user);
+      // console.log('user', user);
       getToken();
     }
   }, [accessToken, getAccessTokenSilently, loginWithRedirect, user]);

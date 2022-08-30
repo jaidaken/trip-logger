@@ -12,11 +12,11 @@ global.__basedir = __dirname; // Make a reference to your project's base directo
 // or use https://github.com/sindresorhus/pkg-dir
 
 const server = app.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`);
+  // console.log(`Listening on http://localhost:${PORT}`);
 });
 
 process.on('uncaughtException', (err) => {
-  console.log(err);
+  // console.log(err);
   // attempt a gracefully shutdown
   server.close(() => {
     process.exit(1); // then exit
@@ -30,7 +30,7 @@ process.on('uncaughtException', (err) => {
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.log(reason);
+  // console.log(reason);
   server.close(() => {
     process.exit(1);
   });
