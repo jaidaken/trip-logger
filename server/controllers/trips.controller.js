@@ -1,5 +1,5 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable import/extensions */
 import Trip from '../models/trip.model.js';
 import User from '../models/user.model.js';
 // const { errorHandler } = require("./utils");

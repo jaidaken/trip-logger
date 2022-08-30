@@ -9,13 +9,14 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { TripsContext } from '../contexts/trips.context';
+import { AuthContext } from '../contexts/auth.context';
 import EB from '../components/ErrorBoundary';
 
 function Trips() {
   const {
     fetchTrips, trips, loaded, loading, deleteTrip,
   } = useContext(TripsContext);
-
+  const { accessToken } = useContext(AuthContext);
   useEffect(() => {
     console.log('HERRERERERE', { trips, loaded, loading });
     if (!loaded && !loading) {
@@ -32,6 +33,7 @@ function Trips() {
         <code>{JSON.stringify({ trips, loaded, loading })}</code>
       </pre> */}
         <div>
+          <p>{accessToken}</p>
           <Button
             sx={{
               my: 2,

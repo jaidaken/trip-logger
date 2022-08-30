@@ -31,7 +31,7 @@ import { UIProvider } from './contexts/ui.context';
 
 // Auth0 settings
 import history from './utils/history';
-import { getConfig } from './config';
+import getConfig from './config';
 
 const onRedirectCallback = (appState) => {
   history.push(appState && appState.returnTo ? appState.returnTo : window.location.pathname);

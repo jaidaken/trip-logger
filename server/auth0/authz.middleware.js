@@ -1,4 +1,4 @@
-import { expressjwt } from 'express-jwt';
+import jwt from 'express-jwt';
 import jwksRsa from 'jwks-rsa';
 
 const { AUTH0_DOMAIN, AUTH0_AUDIENCE } = process.env;
@@ -6,7 +6,7 @@ const { AUTH0_DOMAIN, AUTH0_AUDIENCE } = process.env;
 console.log('AUTH0_DOMAIN', AUTH0_DOMAIN);
 console.log('AUTH0_AUDIENCE', AUTH0_AUDIENCE);
 
-export const checkJwt = expressjwt({
+export const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,

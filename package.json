@@ -25,8 +25,6 @@
     "@mui/system": "^5.10.2",
     "@types/lodash.intersection": "^4.4.7",
     "concurrently": "^7.3.0",
-    "express-jwt": "^7.7.5",
-    "jwks-rsa": "^2.1.4",
     "lodash.intersection": "^4.4.0",
     "react-error-boundary": "^3.1.4"
   },
