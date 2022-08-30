@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import { Auth0Provider } from '@auth0/auth0-react';
 
-import theme from './theme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { theme } from './theme/theme';
 
 import PageLayout from './components/PageLayout';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -33,6 +33,8 @@ import { UIProvider } from './contexts/ui.context';
 import history from './utils/history';
 import getConfig from './config';
 
+import './App.css';
+
 const onRedirectCallback = (appState) => {
   history.push(appState && appState.returnTo ? appState.returnTo : window.location.pathname);
 };
@@ -56,8 +58,8 @@ function App() {
               <PlacesProvider>
                 <UsersProvider>
                   <TripsProvider>
-                    <CssBaseline enableColorScheme />
                     <ThemeProvider theme={theme}>
+                      <CssBaseline enableColorScheme />
                       <Routes>
                         <Route path="/" element={<PageLayout />}>
                           <Route index element={<Home />} />
@@ -96,6 +98,7 @@ function App() {
               </PlacesProvider>
             </AuthProvider>
           </UIProvider>
+
         </Auth0Wrapper>
       </Auth0Provider>
     </Router>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Typography from '@mui/material/Typography';
 
@@ -12,15 +13,19 @@ function Profile() {
   return (
     isAuthenticated && (
       <div>
-        <Typography variant="h1">Profile</Typography>
-        <img src={user.picture} alt={user.name} />
-        <Typography variant="h2">{user.name}</Typography>
-        <p>
-          <a href={`mailto:${user.email}`}>{user.email}</a>
-        </p>
-        <pre>
-          <code>{JSON.stringify(user, null, 2)}</code>
-        </pre>
+        <section className="profileHeadline">
+          <img src={user.picture} alt={user.name} />
+          <Typography variant="h2">{user.name}</Typography>
+        </section>
+        <section>
+          <NavLink
+            style={{ textDecoration: 'none', color: 'inherit' }} 
+            className="navlink"
+            sx={{ fontSize: 5 }} 
+            to="/trips">
+            My trips
+          </NavLink>
+        </section>
       </div>
     )
   );

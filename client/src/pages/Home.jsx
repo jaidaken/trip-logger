@@ -11,7 +11,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function Home() {
   const { user } = useAuth0();
-  if (!user) return <p>Log in to see your trips!!</p>;
+  if (!user) return
+  <section style={{ lineHeight: 1 }}><p>Log in to see your trips!!</p></section>;
   return (
     <div>
       <Typography variant="h1">Home</Typography>
@@ -46,7 +47,6 @@ function Home() {
               </Button>
             </CardActions>
           </Card>
-
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
               component="img"

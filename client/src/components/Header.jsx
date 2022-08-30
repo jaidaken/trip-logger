@@ -3,79 +3,54 @@ import { NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-// import IconButton from "@mui/material/IconButton";
-// import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Header() {
   const { loginWithRedirect, logout, user } = useAuth0();
   const logoutFn = () => logout({ returnTo: window.location.origin });
   return (
-    <Box sx={{ flexGrow: 1, mb: 4 }}>
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Button
-            sx={{
-              my: 2,
-              color: 'white',
-              display: 'block',
-              '&:hover': {
-                color: 'yellow',
-              },
-            }}
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            style={{ textDecoration: 'none', color: 'inherit' }}
+            variant="h3"
+            sx={{ flexGrow: 1 }}
             component={NavLink}
             to="/"
           >
             Trip Logger
-          </Button>
-
+          </Typography>
           <Button
-            sx={{
-              my: 2,
-              color: 'white',
-              display: 'block',
-              '&:hover': {
-                color: 'yellow',
-              },
-            }}
+            style={{ textDecoration: 'none', color: 'inherit' }}
             component={NavLink}
             to="/profile"
           >
             Profile
           </Button>
-
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'none', md: 'flex' },
-              justifyContent: 'flex-end',
-            }}
-          />
           {user ? (
             <Button
-              sx={{
-                backgroundColor: 'white',
-                boxShadow: '4px 4px hsla(359, 96%, 24%, 0.4)',
-                '&:hover': {
-                  backgroundColor: 'yellow',
-                  boxShadow: '2px 2px hsla(359, 96%, 24%, 0.8)',
-                },
-              }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
               onClick={logoutFn}
             >
               Log Out
             </Button>
           ) : (
             <Button
-              sx={{
-                backgroundColor: 'white',
-                boxShadow: '4px 4px hsla(359, 96%, 24%, 0.4)',
-                '&:hover': {
-                  backgroundColor: 'yellow',
-                  boxShadow: '2px 2px hsla(359, 96%, 24%, 0.8)',
-                },
-              }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
               onClick={loginWithRedirect}
             >
               Log In
@@ -84,6 +59,34 @@ function Header() {
         </Toolbar>
       </AppBar>
     </Box>
+    // <Box>
+    //   <AppBar position="static">
+    //     <Toolbar>
+    //       <Button
+    //         component={NavLink}
+    //         to="/"
+    //       >
+    //         Trip Logger
+    //       </Button>
+    //       <Box />
+    //       <Button
+    //         component={NavLink}
+    //         to="/profile"
+    //       >
+    //         Profile
+    //       </Button>
+    //       {user ? (
+    //         <Button onClick={logoutFn}>
+    //           Log Out
+    //         </Button>
+    //       ) : (
+    //         <Button onClick={loginWithRedirect}>
+    //           Log In
+    //         </Button>
+    //       )}
+    //     </Toolbar>
+    //   </AppBar>
+    // </Box>
   );
 }
 
