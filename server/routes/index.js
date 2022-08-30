@@ -1,10 +1,11 @@
+/* eslint-disable import/extensions */
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 import path from 'path';
 import * as url from 'url';
-import placesRouter from './places.router';
-import usersRouter from './users.router';
-import tripsRouter from './trips.router';
+import placesRouter from './places.router.js';
+import usersRouter from './users.router.js';
+import tripsRouter from './trips.router.js';
 
 const { NODE_ENV = 'development' } = process.env;
 // const __filename = url.fileURLToPath(import.meta.url);
