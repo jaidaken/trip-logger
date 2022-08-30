@@ -1,14 +1,16 @@
-import Place from "../models/place.model.js";
+/* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
+import Place from '../models/place.model';
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 
-function errorHandler (res, err) {
+function errorHandler(res, err) {
   console.log(err);
   res.status(500).send(err);
 }
 
 export function getPlaces(req, res) {
-  let query = {};
+  const query = {};
   if (req.params.id) {
     query._id = req.params.id;
   }
@@ -16,29 +18,30 @@ export function getPlaces(req, res) {
     // .populate("items")
     .exec((err, places) => {
       if (err) return errorHandler(res, err);
-      if (req.params.id && places.length === 0)
-        return res.status(404).send({ message: "No place with that ID" });
+      if (req.params.id && places.length === 0) return res.status(404).send({ message: 'No place with that ID' });
       return res.status(200).json(places);
     });
 }
 
-export function getUserPlaces(req, res) {
-  let query = {};
+export function getUsersPlaces(req, res) {
+  const query = {
+    // customerID: req.user.sub, // ensure own places only
+  };
+
   if (req.params.id) {
     query._id = req.params.id;
   }
-  User.find(query)
+  Place.find(query)
     // .populate("items")
-    .exec((err, users) => {
+    .exec((err, places) => {
       if (err) return errorHandler(res, err);
-      if (req.params.id && users.length === 0)
-        return res.status(404).send({ message: "No user with that ID" });
-      return res.status(200).json(users);
+      if (req.params.id && places.length === 0) return res.status(404).send({ message: 'No place with that ID' });
+      return res.status(200).json(places);
     });
 }
 
 export function getOwnPlaces(req, res) {
-  let query = {
+  const query = {
     customerID: req.user.sub, // ensure own places only
   };
 
@@ -49,15 +52,14 @@ export function getOwnPlaces(req, res) {
     // .populate("items")
     .exec((err, places) => {
       if (err) return errorHandler(res, err);
-      if (req.params.id && places.length === 0)
-        return res.status(404).send({ message: "No place with that ID" });
+      if (req.params.id && places.length === 0) return res.status(404).send({ message: 'No place with that ID' });
       return res.status(200).json(places);
     });
 }
 
 export function addPlace(req, res) {
   const placeData = req.body;
-  console.log(`placeData`, placeData);
+  console.log('placeData', placeData);
   const newPlace = new Place(placeData);
   newPlace.save((err, place) => {
     if (err) return errorHandler(res, err);
@@ -77,38 +79,32 @@ export function addOwnPlace(req, res) {
 }
 
 export function updatePlace(req, res) {
-  Place.updateOne({ _id: req.params.id }, req.body, function (err, result) {
+  Place.updateOne({ _id: req.params.id }, req.body, (err, result) => {
     if (err) return errorHandler(res, err);
     /// change the object
     // obj.save()
     console.log(`result ${result}`);
-    if (result.nModified === 0)
-      return res.status(404).send({ message: "No place with that ID" });
+    if (result.nModified === 0) return res.status(404).send({ message: 'No place with that ID' });
     res.sendStatus(200);
   });
 }
 
 export function updateOwnPlace(req, res) {
-  Place.updateOne(
-    { _id: req.params.id, owner: req.user.sub },
-    req.body,
-    function (err, result) {
-      if (err) return errorHandler(res, err);
-      console.log(`result ${result}`);
-      if (result.nModified === 0)
-        return res.status(404).send({ message: "No place with that ID" });
-      res.sendStatus(200);
-    }
-  );
+  Place.updateOne({ _id: req.params.id, owner: req.user.sub }, req.body, (err, result) => {
+    if (err) return errorHandler(res, err);
+    console.log(`result ${result}`);
+    if (result.nModified === 0) return res.status(404).send({ message: 'No place with that ID' });
+    res.sendStatus(200);
+  });
 }
 
 export function removePlace(req, res) {
   const placeId = req.params.id;
-  Place.deleteOne({ _id: placeId }, function (err, report) {
+  Place.deleteOne({ _id: placeId }, (err, report) => {
     if (err) return errorHandler(res, err);
     console.log(`report ${report}`);
     if (placeId && report.deletedCount === 0) {
-      return res.status(404).send({ message: "No place with that ID" });
+      return res.status(404).send({ message: 'No place with that ID' });
     }
     res.sendStatus(204);
   });
@@ -116,11 +112,11 @@ export function removePlace(req, res) {
 
 export function removeOwnPlace(req, res) {
   const placeId = req.params.id;
-  Place.deleteOne({ _id: placeId, owner: req.user.sub }, function (err, report) {
+  Place.deleteOne({ _id: placeId, owner: req.user.sub }, (err, report) => {
     if (err) return errorHandler(res, err);
     console.log(`report ${report}`);
     if (placeId && report.deletedCount === 0) {
-      return res.status(404).send({ message: "No place with that ID" });
+      return res.status(404).send({ message: 'No place with that ID' });
     }
     res.sendStatus(204);
   });

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // import path from 'path';
 import express from 'express';
 
@@ -6,27 +7,18 @@ import {
   addPlace,
   updatePlace,
   removePlace,
-  getUserPlaces,
+  getUsersPlaces,
   // getOwnPlaces,
   // addOwnPlace,
   // updateOwnPlace,
   // removeOwnPlace,
-} from "../controllers/places.controller.js";
+} from '../controllers/places.controller';
 
 const router = express.Router();
 
-router
-  .get(
-    "/:id?",
-    getPlaces
-  )
-  .get(
-	"/user/:userid",
-	getUserPlaces
-  )
-//   .post("/", addPlace)
-//   .put("/:id", updatePlace)
-//   .delete("/:id", removePlace)
-  
+router.get('/:id?', getPlaces).get('/user/:userid', getUsersPlaces);
+// .post("/", addPlace)
+// .put("/:id", updatePlace)
+// .delete("/:id", removePlace)
 
 export default router;

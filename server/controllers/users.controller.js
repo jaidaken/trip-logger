@@ -1,14 +1,16 @@
-import User from "../models/user.model.js";
+/* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
+import User from '../models/user.model';
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 
-function errorHandler (res, err) {
+function errorHandler(res, err) {
   console.log(err);
   res.status(500).send(err);
 }
 
 export function getUsers(req, res) {
-  let query = {};
+  const query = {};
   if (req.params.id) {
     query._id = req.params.id;
   }
@@ -16,29 +18,13 @@ export function getUsers(req, res) {
     // .populate("items")
     .exec((err, users) => {
       if (err) return errorHandler(res, err);
-      if (req.params.id && users.length === 0)
-        return res.status(404).send({ message: "No user with that ID" });
-      return res.status(200).json(users);
-    });
-}
-
-export function getUserUsers(req, res) {
-  let query = {};
-  if (req.params.id) {
-    query._id = req.params.id;
-  }
-  User.find(query)
-    // .populate("items")
-    .exec((err, users) => {
-      if (err) return errorHandler(res, err);
-      if (req.params.id && users.length === 0)
-        return res.status(404).send({ message: "No user with that ID" });
+      if (req.params.id && users.length === 0) return res.status(404).send({ message: 'No user with that ID' });
       return res.status(200).json(users);
     });
 }
 
 export function getOwnUsers(req, res) {
-  let query = {
+  const query = {
     customerID: req.user.sub, // ensure own users only
   };
 
@@ -49,15 +35,14 @@ export function getOwnUsers(req, res) {
     // .populate("items")
     .exec((err, users) => {
       if (err) return errorHandler(res, err);
-      if (req.params.id && users.length === 0)
-        return res.status(404).send({ message: "No user with that ID" });
+      if (req.params.id && users.length === 0) return res.status(404).send({ message: 'No user with that ID' });
       return res.status(200).json(users);
     });
 }
 
 export function addUser(req, res) {
   const userData = req.body;
-  console.log(`userData`, userData);
+  console.log('userData', userData);
   const newUser = new User(userData);
   newUser.save((err, user) => {
     if (err) return errorHandler(res, err);
@@ -77,38 +62,32 @@ export function addOwnUser(req, res) {
 }
 
 export function updateUser(req, res) {
-  User.updateOne({ _id: req.params.id }, req.body, function (err, result) {
+  User.updateOne({ _id: req.params.id }, req.body, (err, result) => {
     if (err) return errorHandler(res, err);
     /// change the object
     // obj.save()
     console.log(`result ${result}`);
-    if (result.nModified === 0)
-      return res.status(404).send({ message: "No user with that ID" });
+    if (result.nModified === 0) return res.status(404).send({ message: 'No user with that ID' });
     res.sendStatus(200);
   });
 }
 
 export function updateOwnUser(req, res) {
-  User.updateOne(
-    { _id: req.params.id, owner: req.user.sub },
-    req.body,
-    function (err, result) {
-      if (err) return errorHandler(res, err);
-      console.log(`result ${result}`);
-      if (result.nModified === 0)
-        return res.status(404).send({ message: "No user with that ID" });
-      res.sendStatus(200);
-    }
-  );
+  User.updateOne({ _id: req.params.id, owner: req.user.sub }, req.body, (err, result) => {
+    if (err) return errorHandler(res, err);
+    console.log(`result ${result}`);
+    if (result.nModified === 0) return res.status(404).send({ message: 'No user with that ID' });
+    res.sendStatus(200);
+  });
 }
 
 export function removeUser(req, res) {
   const userId = req.params.id;
-  User.deleteOne({ _id: userId }, function (err, report) {
+  User.deleteOne({ _id: userId }, (err, report) => {
     if (err) return errorHandler(res, err);
     console.log(`report ${report}`);
     if (userId && report.deletedCount === 0) {
-      return res.status(404).send({ message: "No user with that ID" });
+      return res.status(404).send({ message: 'No user with that ID' });
     }
     res.sendStatus(204);
   });
@@ -116,11 +95,11 @@ export function removeUser(req, res) {
 
 export function removeOwnUser(req, res) {
   const userId = req.params.id;
-  User.deleteOne({ _id: userId, owner: req.user.sub }, function (err, report) {
+  User.deleteOne({ _id: userId, owner: req.user.sub }, (err, report) => {
     if (err) return errorHandler(res, err);
     console.log(`report ${report}`);
     if (userId && report.deletedCount === 0) {
-      return res.status(404).send({ message: "No user with that ID" });
+      return res.status(404).send({ message: 'No user with that ID' });
     }
     res.sendStatus(204);
   });

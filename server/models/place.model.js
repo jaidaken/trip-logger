@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+
+const { Schema } = mongoose;
 
 const PlaceSchema = new Schema({
   name: {
@@ -18,37 +19,51 @@ const PlaceSchema = new Schema({
   independent: Boolean,
   status: String,
   unMember: Boolean,
-  currencies: { type: Map, of: { name: String, symbol: String } },
+  currencies: { KWD: { name: String, symbol: String } },
   idd: { root: String, suffixes: [String] },
   capital: [String],
-  altSpellings: [String, String, String, String, String],
+  altSpellings: [String, String, String],
   region: String,
   subregion: String,
-  languages: { type: Map, of: String },
+  languages: {
+    type: Map,
+    of: String,
+  },
   translations: {
     type: Map,
     of: { official: String, common: String },
   },
   latlng: [Number],
   landlocked: Boolean,
-  borders: [String, String, String, String],
+  borders: [String, String],
   area: Number,
-  demonyms: { type: Map, of: { f: String, m: String } },
+  demonyms: {
+    type: Map,
+    of: { f: String, m: String },
+  },
   flag: String,
-  maps: { type: Map, of: String },
+  maps: {
+    googleMaps: String, // URL check
+    openStreetMaps: String,
+  },
   population: Number,
-  gini: { String },
   fifa: String,
-  car: { type: Map, of: { signs: [String], side: String } },
+  car: { signs: [String], side: String },
   timezones: [String],
   continents: [String],
-  flags: { type: Map, of: { png: String, svg: String } },
-  coatOfArms: { type: Map, of: { png: String, svg: String } },
+  flags: {
+    png: String,
+    svg: String,
+  },
+  coatOfArms: {
+    png: String,
+    svg: String,
+  },
   startOfWeek: String,
-  capitalInfo: { type: Map, of: [Number] },
-  postalCode: { type: Map, of: { format: String, regex: String } },
+  capitalInfo: { latlng: [Number] },
+  postalCode: { format: String, regex: String },
 });
 
-const Place = mongoose.model("Place", PlaceSchema);
+const Place = mongoose.model('Place', PlaceSchema);
 
 export default Place;

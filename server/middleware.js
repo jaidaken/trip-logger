@@ -10,20 +10,20 @@ import morgan from 'morgan';
 import * as url from 'url';
 // const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-global.__basedir = __dirname;
 
 const { NODE_ENV = 'development' } = process.env;
 
 export default function middlewareSetup(app) {
-  // In dev mode, react-server serves the files
-  // BUT in production we BUILD the react project and express serves it out of the build folder
+  // In dev mode, react-server serves the files BUT in production we
+  // BUILD the react project and express serves it out of the build folder
   if (NODE_ENV === 'production') {
+    // console.log('in prod', path.join(__dirname, "../client/", "dist"));
     app.use(express.static(path.join(__dirname, '../client/', 'dist')));
     app.use(compression());
   }
 
   // parse application/x-www-form-urlencoded
-  app.use(express.urlencoded({ extended: false }));
+  // app.use(express.urlencoded({ extended: false }));
 
   // parse application/json
   app.use(express.json());
@@ -31,7 +31,7 @@ export default function middlewareSetup(app) {
   // Helmet for security
   // app.use(helmet());
   // CORS to make our API public
-  //   app.use(cors());
+  // app.use(cors());
 
   // http logging
   app.use(morgan('dev'));

@@ -10,7 +10,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function Header() {
   const { loginWithRedirect, logout, user } = useAuth0();
-  const loginFn = () => loginWithRedirect();
   const logoutFn = () => logout({ returnTo: window.location.origin });
   return (
     <Box sx={{ flexGrow: 1, mb: 4 }}>
@@ -77,7 +76,7 @@ function Header() {
                   boxShadow: '2px 2px hsla(359, 96%, 24%, 0.8)',
                 },
               }}
-              onClick={loginFn}
+              onClick={loginWithRedirect}
             >
               Log In
             </Button>
