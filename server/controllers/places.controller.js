@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-import Place from '../models/place.model';
+import Place from '../models/place.model.js';
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 

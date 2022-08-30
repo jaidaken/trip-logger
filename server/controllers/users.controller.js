@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-import User from '../models/user.model';
+import User from '../models/user.model.js';
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 

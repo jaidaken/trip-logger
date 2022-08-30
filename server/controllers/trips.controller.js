@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-import Trip from '../models/trip.model';
-import User from '../models/user.model';
+import Trip from '../models/trip.model.js';
+import User from '../models/user.model.js';
 // const { errorHandler } = require("./utils");
 // const logger = require("./../logger");
 

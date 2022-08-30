@@ -12,7 +12,7 @@ import {
   // addOwnPlace,
   // updateOwnPlace,
   // removeOwnPlace,
-} from '../controllers/places.controller';
+} from '../controllers/places.controller.js';
 
 const router = express.Router();
 

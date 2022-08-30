@@ -1,11 +1,11 @@
-import * as url from "url";
-import "dotenv/config";
+import * as url from 'url';
+import 'dotenv/config';
 
-import app from "./server.js";
+import app from './server.js';
 
 const { PORT = 4000 } = process.env;
 
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 global.__basedir = __dirname; // Make a reference to your project's base directory
 // const yourModule = require(__basedir + '/path/to/module.js');
 // import yourModule from `${__basedir}/path/to/module.js`
@@ -15,7 +15,7 @@ const server = app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
 });
 
-process.on("uncaughtException", (err) => {
+process.on('uncaughtException', (err) => {
   console.log(err);
   // attempt a gracefully shutdown
   server.close(() => {
@@ -29,7 +29,7 @@ process.on("uncaughtException", (err) => {
   }, 1000).unref();
 });
 
-process.on("unhandledRejection", (reason, promise) => {
+process.on('unhandledRejection', (reason, promise) => {
   console.log(reason);
   server.close(() => {
     process.exit(1);

@@ -11,9 +11,9 @@ import {
   addOwnTrip,
   // updateOwnTrip,
   removeOwnTrip,
-} from '../controllers/trips.controller';
+} from '../controllers/trips.controller.js';
 
-import { checkJwt } from '../auth0/authz.middleware';
+import { checkJwt } from '../auth0/authz.middleware.js';
 
 const router = express.Router();
 
