@@ -22,12 +22,12 @@ import AddTrips from './pages/AddTrips';
 
 // Data Contexts
 import { AuthProvider } from './contexts/auth.context';
-import { PlacesProvider } from './contexts/Places.context';
-import { UsersProvider } from './contexts/Users.context';
-import { TripsProvider } from './contexts/Trips.context';
+import { PlacesProvider } from './contexts/places.context';
+import { UsersProvider } from './contexts/users.context';
+import { TripsProvider } from './contexts/trips.context';
 
 // UI Context
-import { UIProvider } from './contexts/Ui.context';
+import { UIProvider } from './contexts/ui.context';
 
 // Auth0 settings
 import history from './utils/history';

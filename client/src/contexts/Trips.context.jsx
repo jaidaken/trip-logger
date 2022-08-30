@@ -2,9 +2,9 @@
 import React, {
   createContext, useState, useCallback, useContext,
 } from 'react';
-import { UIContext } from './Ui.context';
+import { UIContext } from './ui.context';
 import { AuthContext } from './auth.context';
-import { PlacesContext } from './Places.context';
+import { PlacesContext } from './places.context';
 
 const headers = {
   'Content-Type': 'application/json',

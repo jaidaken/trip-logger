@@ -1,25 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import { useAuth0 } from "@auth0/auth0-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Home() {
   const { user } = useAuth0();
-  if(!user) return (<p>Log in to see your trips!!</p>)
+  if (!user) return <p>Log in to see your trips!!</p>;
   return (
     <div>
       <Typography variant="h1">Home</Typography>
       <div>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-        >
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
               component="img"
@@ -36,8 +33,8 @@ function Home() {
               <Button
                 sx={{
                   my: 2,
-                  "&:hover": {
-                    color: "white",
+                  '&:hover': {
+                    color: 'white',
                   },
                 }}
                 component={Link}
@@ -66,8 +63,8 @@ function Home() {
               <Button
                 sx={{
                   my: 2,
-                  "&:hover": {
-                    color: "white",
+                  '&:hover': {
+                    color: 'white',
                   },
                 }}
                 component={Link}

@@ -1,5 +1,5 @@
 {
- "domain": "jaidaken.eu.auth0.com",
- "clientId": "cy1HQHqR3xdcgUhdiANbzVGWS62ovolO",
- "audience": "https://trip-logger-jh.herokuapp.com/api/v1"
+  "domain": "jaidaken.eu.auth0.com",
+  "clientId": "cy1HQHqR3xdcgUhdiANbzVGWS62ovolO",
+  "audience": "https://trip-logger-jh.herokuapp.com/api/v1"
 }
