@@ -48,7 +48,7 @@ function Trips() {
         </div>
         {trips?.length === 0 && <p>No trips listed</p>}
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          <List>
+          <List style={{ paddingLeft: 10}}>
             {trips.map(({ date, place, _id }) => (
               <ListItem disablePadding key={_id}>
                 {place.name.common}
